@@ -1,0 +1,32 @@
+{
+  "info": {
+    "_postman_id": "5c51dd1d-fca2-4de3-a439-30a0f2c840e6",
+    "name": "Esri API Experiment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "11253945"
+  },
+  "item": [
+    {
+      "name": "Weather Forecast",
+      "item": [
+        {
+          "name": "Weather Forecast Example",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ kaufman_api_root_url }}/WeatherForecast",
+              "host": [
+                "{{ kaufman_api_root_url }}"
+              ],
+              "path": [
+                "WeatherForecast"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+@EsriExample_HostAddress = http://localhost:5134
+
+GET {{EsriExample_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
