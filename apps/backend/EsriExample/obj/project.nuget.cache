@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "aMPbVxiyELk=",
+  "success": true,
+  "projectFilePath": "/Users/michaelkaufman/Documents/git/esri-project-mono/apps/backend/EsriExample/EsriExample.csproj",
+  "expectedPackageFiles": [
+    "/Users/michaelkaufman/.nuget/packages/microsoft.aspnetcore.openapi/10.0.11/microsoft.aspnetcore.openapi.10.0.11.nupkg.sha512",
+    "/Users/michaelkaufman/.nuget/packages/microsoft.openapi/2.7.5/microsoft.openapi.2.7.5.nupkg.sha512"
+  ],
+  "logs": []
+}

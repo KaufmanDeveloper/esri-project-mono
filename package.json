@@ -1,10 +1,14 @@
 {
   "name": "esri-project-mono",
+  "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:backend": "dotnet watch --project apps/backend",
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev": "pnpm run --parallel /dev:.*/"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,2 @@
+# Do not commit local .env config files
+*.env
