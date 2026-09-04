@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:backend": "dotnet watch --project apps/backend/EsriExample",
     "dev:frontend": "pnpm --filter esriexample run dev",
-    "dev": "pnpm run --parallel /dev:.*/"
+    "dev": "pnpm -r --parallel run dev"
   },
   "keywords": [],
   "author": "",
