@@ -480,6 +480,3 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
-
-# PNPM Stuff
-.pnpm-workspace-state-v1.json
