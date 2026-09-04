@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:backend": "dotnet watch --project apps/backend/EsriExample",
     "dev:frontend": "pnpm --filter esriexample run dev",
-    "dev": "pnpm -r --parallel run dev"
+    "dev": "concurrently \"pnpm run dev:backend\" \"pnpm run dev:frontend\""
   },
   "keywords": [],
   "author": "",
@@ -21,5 +21,8 @@
     }
   },
   "packageManager": "pnpm@12.3.4",
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
 }

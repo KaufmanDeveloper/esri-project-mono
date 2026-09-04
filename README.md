@@ -2,7 +2,12 @@
 
 This is for testing out features using ESRI's API.  
 
-## Iterating
+## Run
+
+- `pnpm install`
+- `pnpm run dev`
+
+## Contributing
 
 ### Example to add a new dotnet API project
 
