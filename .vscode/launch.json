@@ -3,10 +3,13 @@
   "configurations": [
     {
       "name": "Run API",
-      "type": "node-terminal",
+      "type": "coreclr",
       "request": "launch",
-      "command": "pnpm run dev:backend",
-      "cwd": "${workspaceFolder}"
+      "program": "${workspaceFolder}/apps/backend/EsriExample/bin/Debug/net10.0/EsriExample",
+      "cwd": "${workspaceFolder}/apps/backend/EsriExample",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     },
     {
       "name": "Run Web App",
@@ -15,12 +18,15 @@
       "command": "pnpm run dev:frontend",
       "cwd": "${workspaceFolder}"
     },
+  ],
+  "compounds": [
     {
       "name": "Run Full Stack",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "pnpm run dev",
-      "cwd": "${workspaceFolder}"
+      "configurations": [
+        "Run API",
+        "Run Web App"
+      ],
+      "stopAll": true
     }
   ]
 }
