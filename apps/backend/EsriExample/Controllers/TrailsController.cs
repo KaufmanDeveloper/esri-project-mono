@@ -7,18 +7,19 @@ namespace MyApp.Namespace
     [ApiController]
     public class TrailsController : ControllerBase
     {
-        private readonly string _esriApiKey;
+        private readonly TrailsService _trailsService;
 
-        public TrailsController(IConfiguration configuration)
+        public TrailsController(TrailsService trailsService)
         {
-            _esriApiKey = configuration["EsriApiKey"]
-                ?? throw new InvalidOperationException("EsriApiKey is not configured.");
+            _trailsService = trailsService;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetTrailsNearCoordinate([FromQuery] float x, [FromQuery] float y, [FromQuery] int radius = 5000)
         {
-            return Ok(new { configured = !string.IsNullOrWhiteSpace(_esriApiKey) });
+            var response = await _trailsService.GetTrailsNearCoordinate();
+
+            return Ok(response);
         }
     }
 }
