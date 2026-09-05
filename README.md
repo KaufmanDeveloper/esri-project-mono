@@ -42,3 +42,8 @@ dotnet user-secrets set "ExistingKeyParent:NestedKey" "LocalEnvValue"
 `dotnet user-secrets remove "KeyToRemove"`  
 
 You can also right click a solutions `.csproj` file and click `Manage User Secrets`.  
+
+
+#### Generate controller
+
+`dotnet aspnet-codegenerator controller -name TrailsController -api -outDir Controllers`  
