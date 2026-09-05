@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run API",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "pnpm run dev:backend",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Run Web App",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "pnpm run dev:frontend",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Run Full Stack",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "pnpm run dev",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
