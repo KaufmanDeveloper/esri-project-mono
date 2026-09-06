@@ -15,12 +15,178 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{ kaufman_api_root_url }}/WeatherForecast",
+              "raw": "{{kaufman_api_root_url}}/WeatherForecast",
               "host": [
-                "{{ kaufman_api_root_url }}"
+                "{{kaufman_api_root_url}}"
               ],
               "path": [
                 "WeatherForecast"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ESRI Calls",
+      "item": [
+        {
+          "name": "Get Alphanumeric IDs for Place Types",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://places-api.arcgis.com/arcgis/rest/services/places-service/v1/categories?filter=trail&token={{esri_api_key}}",
+              "protocol": "https",
+              "host": [
+                "places-api",
+                "arcgis",
+                "com"
+              ],
+              "path": [
+                "arcgis",
+                "rest",
+                "services",
+                "places-service",
+                "v1",
+                "categories"
+              ],
+              "query": [
+                {
+                  "key": "filter",
+                  "value": "trail"
+                },
+                {
+                  "key": "token",
+                  "value": "{{esri_api_key}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Places Near Point",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://places-api.arcgis.com/arcgis/rest/services/places-service/v1/places/near-point?x=-86.509086&y=35.944280&radius=5000&categoryId={{esri_trail_category_id}}&token={{esri_api_key}}&searchText=nature",
+              "protocol": "https",
+              "host": [
+                "places-api",
+                "arcgis",
+                "com"
+              ],
+              "path": [
+                "arcgis",
+                "rest",
+                "services",
+                "places-service",
+                "v1",
+                "places",
+                "near-point"
+              ],
+              "query": [
+                {
+                  "key": "x",
+                  "value": "-86.509086"
+                },
+                {
+                  "key": "y",
+                  "value": "35.944280"
+                },
+                {
+                  "key": "radius",
+                  "value": "5000",
+                  "description": "1000 - 10000 maybe"
+                },
+                {
+                  "key": "categoryId",
+                  "value": "{{esri_trail_category_id}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{esri_api_key}}"
+                },
+                {
+                  "key": "searchText",
+                  "value": "nature"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Places Near Point Rich Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://places-api.arcgis.com/arcgis/rest/services/places-service/v1/places/{{esri_place_id}}?requestedFields=hours:opening,description&token={{esri_api_key}}",
+              "protocol": "https",
+              "host": [
+                "places-api",
+                "arcgis",
+                "com"
+              ],
+              "path": [
+                "arcgis",
+                "rest",
+                "services",
+                "places-service",
+                "v1",
+                "places",
+                "{{esri_place_id}}"
+              ],
+              "query": [
+                {
+                  "key": "requestedFields",
+                  "value": "hours:opening,description"
+                },
+                {
+                  "key": "token",
+                  "value": "{{esri_api_key}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Trails",
+      "item": [
+        {
+          "name": "Get Trails",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{kaufman_api_root_url}}/api/Trails?x=-122.7500&y=45.5600&radius={{default_radius}}",
+              "host": [
+                "{{kaufman_api_root_url}}"
+              ],
+              "path": [
+                "api",
+                "Trails"
+              ],
+              "query": [
+                {
+                  "key": "x",
+                  "value": "-122.7500"
+                },
+                {
+                  "key": "y",
+                  "value": "45.5600"
+                },
+                {
+                  "key": "radius",
+                  "value": "{{default_radius}}"
+                }
               ]
             }
           },

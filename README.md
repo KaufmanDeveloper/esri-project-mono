@@ -22,3 +22,28 @@ This is for testing out features using ESRI's API.
 - pnpm install
 - Update the pnpm scripts in the root `package.json`
 - Add new React project directory to `pnpm-workspace.yaml`
+
+## API
+
+### Managing local secrets
+
+#### Add Secret
+
+```
+dotnet user-secrets set "ExistingKeyName" "LocalEnvValue"
+
+// or for nested config objects
+
+dotnet user-secrets set "ExistingKeyParent:NestedKey" "LocalEnvValue"
+```
+
+#### Remove secret
+
+`dotnet user-secrets remove "KeyToRemove"`  
+
+You can also right click a solutions `.csproj` file and click `Manage User Secrets`.  
+
+
+#### Generate controller
+
+`dotnet aspnet-codegenerator controller -name TrailsController -api -outDir Controllers`  
