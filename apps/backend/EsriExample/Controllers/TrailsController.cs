@@ -17,7 +17,7 @@ namespace MyApp.Namespace
         [HttpGet]
         public async Task<IActionResult> GetTrailsNearCoordinate([FromQuery] float x, [FromQuery] float y, [FromQuery] int radius = 5000)
         {
-            var response = await _trailsService.GetTrailsNearCoordinate();
+            var response = await _trailsService.GetTrailsNearCoordinate(x, y, radius);
 
             return Ok(response);
         }
