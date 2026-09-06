@@ -156,6 +156,43 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Trails",
+      "item": [
+        {
+          "name": "Get Trails",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{kaufman_api_root_url}}/api/Trails?x=-122.7500&y=45.5600&radius={{default_radius}}",
+              "host": [
+                "{{kaufman_api_root_url}}"
+              ],
+              "path": [
+                "api",
+                "Trails"
+              ],
+              "query": [
+                {
+                  "key": "x",
+                  "value": "-122.7500"
+                },
+                {
+                  "key": "y",
+                  "value": "45.5600"
+                },
+                {
+                  "key": "radius",
+                  "value": "{{default_radius}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }
