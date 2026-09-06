@@ -15,7 +15,7 @@ namespace MyApp.Namespace
                 ?? throw new InvalidOperationException("EsriApiKey is not configured.");
         }
 
-        public async Task<EsriNearPointResponseDto> GetTrailsNearCoordinate(float x, float y, int radius = 5000)
+        public async Task<GetTrailsResponseDto> GetTrailsNearCoordinate(float x, float y, int radius = 5000)
         {
             const string hikingTrailsCategoryId = "93b41845becce90cba4937decab13ecc";
 
@@ -29,7 +29,7 @@ namespace MyApp.Namespace
                 { "y", y.ToString() },
                 { "radius", radius.ToString() },
                 { "categoryId", hikingTrailsCategoryId },
-                { "searchText", "nature" },
+                { "searchText", "trail" },
                 { "token", _esriApiKey }
             };
 
@@ -42,7 +42,24 @@ namespace MyApp.Namespace
                 throw new InvalidOperationException("Failed to retrieve trails from Esri API.");
             }
 
-            return response;
+            GetTrailsResponseDto trailsResponse = new GetTrailsResponseDto
+            {
+                Results = response.Results.Select(r => new GetTrailsResult
+                {
+                    Name = r.Name,
+                    Type = r.Categories.FirstOrDefault()?.Label ?? "Unknown",
+                    Location = r.Location is { } location
+                        ? new Location
+                        {
+                            X = location.X,
+                            Y = location.Y
+                        }
+                        : null
+                }).ToList(),
+                Pagination = response.Pagination
+            };
+
+            return trailsResponse;
         }
     }
 }
