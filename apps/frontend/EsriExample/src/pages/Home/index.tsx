@@ -1,123 +1,45 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Container, Grid, Stack, Text, Title, Loader } from "@mantine/core";
-import LocationCard from "../../components/LocationCard";
-import { Map, Marker } from 'pigeon-maps';
 
-import trailsNearPortland from "../../../static-json/trails-near-portland.json";
+import { Text, Loader } from "@mantine/core";
+import TrailsDisplay from "../../components/TrailsDisplay";
 
 // If you do not want to include your ESRI API key for this project, set this to true
-const SHOULD_LOAD_DATA_FROM_STATIC_JSON = true;
-const LOCAL_ROOT_API_URL = "http://localhost:5134";
-const RADIUS = 10000;
+const SHOULD_LOAD_DATA_FROM_STATIC_JSON = false;
 
-type Place = {
-    name: string;
-    type: string;
-    location: {
-        x: number;
-        y: number;
-    };
-}
+function Home() {
+    const [coordinates, setCoordinates] = useState<{ x: number, y: number } | null>(null);
+    const [navigatorPermissionsDenied, setNavigatorPermissionsDenied] = useState<boolean>(true);
+    const [navigatorIsLoading, setNavigatorIsLoading] = useState<boolean>(true);
 
-type TrailsDisplayProps = {
-    coordinates: { x: number, y: number } | null;
-}
+    const navigatorWaitingRender = <Text>Please enable location services to view nearby trails.</Text>;
+    const loadingRender = <Loader color="blue" />;
 
-function Home({ coordinates }: TrailsDisplayProps) {
-    const initialPlaceElements = SHOULD_LOAD_DATA_FROM_STATIC_JSON ? trailsNearPortland.results : [];
-    const initialLoadingState = SHOULD_LOAD_DATA_FROM_STATIC_JSON ? false : true;
+    const trailsDisplayRender = navigatorIsLoading ? loadingRender : <TrailsDisplay coordinates={coordinates} shouldLoadDataFromStaticJson={SHOULD_LOAD_DATA_FROM_STATIC_JSON} />;
 
-    const [placeElements, setPlaceElements] = useState<Place[]>(initialPlaceElements);
-    const [isLoading, setIsLoading] = useState<boolean>(initialLoadingState);
-    const [error, setError] = useState<string | null>(null);
-    const [inspectedElement, setInspectedElement] = useState<Place | null>(null);
-    const coordinate: [number, number] | null = inspectedElement
-        ? [inspectedElement.location.y, inspectedElement.location.x]
-        : null;
+    console.log("Coordinates in Home component:", coordinates);
 
-    const handleCardClick = (place: Place) => {
-        setInspectedElement(place);
-    }
 
     useEffect(() => {
-        if (coordinates === null || coordinates.x === null || coordinates.y === null) {
+        if (!navigator.geolocation) {
+            console.error("Geolocation is not supported by this browser.");
             return;
         }
 
-        let isMounted = true;
-
-        const fetchData = async () => {
-            try {
-                setIsLoading(true);
-                const response = await fetch(`${LOCAL_ROOT_API_URL}/api/Trails?x=${coordinates.x}&y=${coordinates.y}&radius=${RADIUS}`);
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const result = await response.json();
-                if (isMounted) {
-                    setPlaceElements(result);
-                }
-            } catch (err) {
-                if (isMounted) {
-                    setError(err instanceof Error ? err.message : String(err));
-                }
-            } finally {
-                if (isMounted) {
-                    setIsLoading(false);
-                }
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                console.log("User's location:", position.coords);
+                setCoordinates({ x: position.coords.longitude, y: position.coords.latitude });
+                setNavigatorPermissionsDenied(false);
+                setNavigatorIsLoading(false);
+            },
+            (error) => {
+                console.error("Error getting user's location:", error);
+                setNavigatorPermissionsDenied(true);
             }
-        };
-
-        fetchData();
-
-        return () => {
-            isMounted = false;
-        };
+        );
     }, []);
 
-    const placeCards = placeElements.map((place, index) => (
-        <Grid.Col key={index} span={4}>
-            <LocationCard name={place.name} type={place.type} handleClick={() => handleCardClick(place)} />
-        </Grid.Col>
-    ));
-
-    const loadingRender = isLoading ? (
-        <Container size="lg" my="md">
-            <Loader color="blue" />
-        </Container>
-    ) : null;
-
-    const render = inspectedElement ? (
-        <Container size="md" my="md">
-            <Stack gap="sm">
-                <Title order={2}>{inspectedElement.name}</Title>
-                <Text>{inspectedElement.type}</Text>
-                <Text>Coordinates: ({inspectedElement.location.x}, {inspectedElement.location.y})</Text>
-
-                {coordinate && (
-                    <Box maw={400} w="100%" mx={0}>
-                        <Map height={250} defaultCenter={coordinate} defaultZoom={12}>
-                            <Marker width={50} anchor={coordinate} color="red" />
-                        </Map>
-                    </Box>
-                )}
-
-                <Button w="fit-content" onClick={() => setInspectedElement(null)}>
-                    Back to List
-                </Button>
-            </Stack>
-        </Container>
-    ) : (
-        <Container size="md" my="md">
-            <Grid>
-                {placeCards}
-            </Grid>
-        </Container>
-    );
-
-    return loadingRender || render;
+    return navigatorPermissionsDenied ? navigatorWaitingRender : trailsDisplayRender;
 }
 
 export default Home
