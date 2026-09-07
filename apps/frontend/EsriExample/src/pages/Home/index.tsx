@@ -27,7 +27,6 @@ function Home() {
 
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                console.log("User's location:", position.coords);
                 setCoordinates({ x: position.coords.longitude, y: position.coords.latitude });
                 setNavigatorPermissionsDenied(false);
                 setNavigatorIsLoading(false);
