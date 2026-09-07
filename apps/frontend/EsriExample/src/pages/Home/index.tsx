@@ -34,10 +34,9 @@ function Home() {
     const render = inspectedElement ? (
         <Container size="md" my="md">
             <Stack gap="sm">
-                <Title order={2}>Inspected Element</Title>
-                <Text>Name: {inspectedElement.name}</Text>
-                <Text>Type: {inspectedElement.type}</Text>
-                <Text>Location: ({inspectedElement.location.x}, {inspectedElement.location.y})</Text>
+                <Title order={2}>{inspectedElement.name}</Title>
+                <Text>{inspectedElement.type}</Text>
+                <Text>Coordinates: ({inspectedElement.location.x}, {inspectedElement.location.y})</Text>
 
                 {coordinate && (
                     <Box maw={400} w="100%" mx={0}>
