@@ -16,9 +16,6 @@ function Home() {
 
     const trailsDisplayRender = navigatorIsLoading ? loadingRender : <TrailsDisplay coordinates={coordinates} shouldLoadDataFromStaticJson={SHOULD_LOAD_DATA_FROM_STATIC_JSON} />;
 
-    console.log("Coordinates in Home component:", coordinates);
-
-
     useEffect(() => {
         if (!navigator.geolocation) {
             console.error("Geolocation is not supported by this browser.");
@@ -38,7 +35,7 @@ function Home() {
         );
     }, []);
 
-    return navigatorPermissionsDenied ? navigatorWaitingRender : trailsDisplayRender;
+    return navigatorPermissionsDenied && !SHOULD_LOAD_DATA_FROM_STATIC_JSON ? navigatorWaitingRender : trailsDisplayRender;
 }
 
 export default Home

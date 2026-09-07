@@ -39,11 +39,9 @@ function TrailsDisplay({ coordinates, shouldLoadDataFromStaticJson = false }: Tr
     }
 
     useEffect(() => {
-        if (coordinates === null || coordinates.x === null || coordinates.y === null) {
+        if (coordinates === null || coordinates.x === null || coordinates.y === null || shouldLoadDataFromStaticJson) {
             return;
         }
-
-        let isMounted = true;
 
         const fetchData = async () => {
             try {
@@ -55,32 +53,22 @@ function TrailsDisplay({ coordinates, shouldLoadDataFromStaticJson = false }: Tr
                 }
 
                 const result = await response.json();
-                if (isMounted) {
-                    setPlaceElements(result);
-                }
+                setPlaceElements(result.results);
             } catch (err) {
-                if (isMounted) {
-                    setError(err instanceof Error ? err.message : String(err));
-                }
+                setError(err instanceof Error ? err.message : String(err));
             } finally {
-                if (isMounted) {
-                    setIsLoading(false);
-                }
+                setIsLoading(false);
             }
         };
 
         fetchData();
-
-        return () => {
-            isMounted = false;
-        };
     }, []);
 
-    const placeCards = placeElements.map((place, index) => (
+    const placeCards = placeElements.length > 0 ? placeElements.map((place, index) => (
         <Grid.Col key={index} span={4}>
             <LocationCard name={place.name} type={place.type} handleClick={() => handleCardClick(place)} />
         </Grid.Col>
-    ));
+    )) : <Text>No trails found.</Text>;
 
     const errorRender = error ? (
         <Container size="lg" my="md">
