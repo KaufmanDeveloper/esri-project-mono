@@ -2,8 +2,15 @@
 
 This is for testing out features using ESRI's API.  
 
+Currently, a `Trails Viewer` application is implemented to allow users to view trails near their current location.  
+
 ## Run
 
+**You will need to add your ESRI API key to user secrets**  
+- `cd ./apps/backend/EsriExample/`
+- `dotnet user-secrets set "EsriApiKey" "{{your_esri_api_key}}"`
+
+**Then at the root of the repository:**  
 - `pnpm install`
 - `pnpm run dev`
 
