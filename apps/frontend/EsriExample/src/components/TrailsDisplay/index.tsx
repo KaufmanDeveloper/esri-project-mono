@@ -82,6 +82,12 @@ function TrailsDisplay({ coordinates, shouldLoadDataFromStaticJson = false }: Tr
         </Grid.Col>
     ));
 
+    const errorRender = error ? (
+        <Container size="lg" my="md">
+            <Text color="red">{error}</Text>
+        </Container>
+    ) : null;
+
     const loadingRender = isLoading ? (
         <Container size="lg" my="md">
             <Loader color="blue" />
@@ -116,7 +122,7 @@ function TrailsDisplay({ coordinates, shouldLoadDataFromStaticJson = false }: Tr
         </Container>
     );
 
-    return loadingRender || render;
+    return loadingRender || errorRender || render;
 }
 
 export default TrailsDisplay
