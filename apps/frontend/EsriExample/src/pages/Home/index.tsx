@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Container, Grid } from "@mantine/core";
+import { Box, Button, Container, Grid, Stack, Text, Title } from "@mantine/core";
 import LocationCard from "../../components/LocationCard";
 import { Map, Marker } from 'pigeon-maps';
 
@@ -32,24 +32,26 @@ function Home() {
     ));
 
     const render = inspectedElement ? (
-        <div>
-            <h2>Inspected Element</h2>
-            <p>Name: {inspectedElement.name}</p>
-            <p>Type: {inspectedElement.type}</p>
-            <p>Location: ({inspectedElement.location.x}, {inspectedElement.location.y})</p>
+        <Container size="md" my="md">
+            <Stack gap="sm">
+                <Title order={2}>Inspected Element</Title>
+                <Text>Name: {inspectedElement.name}</Text>
+                <Text>Type: {inspectedElement.type}</Text>
+                <Text>Location: ({inspectedElement.location.x}, {inspectedElement.location.y})</Text>
 
-            {coordinate && (
-                <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-                    <Map height={400} defaultCenter={coordinate} defaultZoom={12}>
-                        <Marker width={50} anchor={coordinate} color="red" />
-                    </Map>
-                </div>
-            )}
+                {coordinate && (
+                    <Box maw={400} w="100%" mx={0}>
+                        <Map height={250} defaultCenter={coordinate} defaultZoom={12}>
+                            <Marker width={50} anchor={coordinate} color="red" />
+                        </Map>
+                    </Box>
+                )}
 
-            <Button my="md" onClick={() => setInspectedElement(null)}>
-                Back to List
-            </Button>
-        </div>
+                <Button w="fit-content" onClick={() => setInspectedElement(null)}>
+                    Back to List
+                </Button>
+            </Stack>
+        </Container>
     ) : (
         <Container size="md" my="md">
             <Grid>
