@@ -121,6 +121,9 @@ importers:
       '@mantine/hooks':
         specifier: ^9.6.0
         version: 9.6.0(react@19.2.8)
+      pigeon-maps:
+        specifier: ^0.22.1
+        version: 0.22.1(react@19.2.8)
       react:
         specifier: ^19.2.8
         version: 19.2.8
@@ -961,6 +964,11 @@ packages:
   picomatch@4.0.7:
     resolution: {integrity: sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==}
     engines: {node: '>=12'}
+
+  pigeon-maps@0.22.1:
+    resolution: {integrity: sha512-mVWxgpIyhAekITeJvDGlFAo/Ytm6Fg7prpDiAuQ0Z6cJ/LwpnS8F0sF+0TDqyJu7C/DDHupkstFTNoIRqhdP5A==}
+    peerDependencies:
+      react: '*'
 
   postcss-js@4.1.0:
     resolution: {integrity: sha512-oIAOTqgIo7q2EOwbhb8UalYePMvYoIeRY2YKntdpFQXNosSu3vLrniGgmH9OKs/qAkfoj5oB3le/7mINW1LCfw==}
@@ -1994,6 +2002,10 @@ snapshots:
   picocolors@1.1.1: {}
 
   picomatch@4.0.7: {}
+
+  pigeon-maps@0.22.1(react@19.2.8):
+    dependencies:
+      react: 19.2.8
 
   postcss-js@4.1.0(postcss@8.5.28):
     dependencies:

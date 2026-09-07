@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Container, Grid } from "@mantine/core";
 import LocationCard from "../../components/LocationCard";
+import { Map, Marker } from 'pigeon-maps';
 
 import exampleTrailsResponse from "../../../testing-json/get-trails-response-near-portland.json";
 
@@ -15,6 +16,9 @@ type Place = {
 
 function Home() {
     const [inspectedElement, setInspectedElement] = useState<Place | null>(null);
+    const coordinate: [number, number] | null = inspectedElement
+        ? [inspectedElement.location.y, inspectedElement.location.x]
+        : null;
     const placeElements = exampleTrailsResponse.results;
 
     const handleCardClick = (place: Place) => {
@@ -33,6 +37,14 @@ function Home() {
             <p>Name: {inspectedElement.name}</p>
             <p>Type: {inspectedElement.type}</p>
             <p>Location: ({inspectedElement.location.x}, {inspectedElement.location.y})</p>
+
+            {coordinate && (
+                <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+                    <Map height={400} defaultCenter={coordinate} defaultZoom={12}>
+                        <Marker width={50} anchor={coordinate} color="red" />
+                    </Map>
+                </div>
+            )}
 
             <Button my="md" onClick={() => setInspectedElement(null)}>
                 Back to List
