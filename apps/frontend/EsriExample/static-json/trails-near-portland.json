@@ -1,0 +1,87 @@
+{
+    "results": [
+        {
+            "name": "Firelane 2",
+            "type": "Hiking Trail",
+            "location": {
+                "x": -122.753011,
+                "y": 45.556669
+            }
+        },
+        {
+            "name": "Forest Park",
+            "type": "Forest",
+            "location": {
+                "x": -122.756338,
+                "y": 45.560008
+            }
+        },
+        {
+            "name": "Saltzman Trail",
+            "type": "Hiking Trail",
+            "location": {
+                "x": -122.752895,
+                "y": 45.56626
+            }
+        },
+        {
+            "name": "Koenig Trail",
+            "type": "Hiking Trail",
+            "location": {
+                "x": -122.760402,
+                "y": 45.558441
+            }
+        },
+        {
+            "name": "Chestnut Trail",
+            "type": "Hiking Trail",
+            "location": {
+                "x": -122.753325,
+                "y": 45.552777
+            }
+        },
+        {
+            "name": "Nature Trail",
+            "type": "Hiking Trail",
+            "location": {
+                "x": -122.753176,
+                "y": 45.552736
+            }
+        },
+        {
+            "name": "Cleator Trail",
+            "type": "Hiking Trail",
+            "location": {
+                "x": -122.765196,
+                "y": 45.562135
+            }
+        },
+        {
+            "name": "Morak Trail",
+            "type": "Forest",
+            "location": {
+                "x": -122.744705,
+                "y": 45.549374
+            }
+        },
+        {
+            "name": "Fire Lane 1 Forest Park",
+            "type": "Hiking Trail",
+            "location": {
+                "x": -122.745044,
+                "y": 45.547983
+            }
+        },
+        {
+            "name": "Maple Trail",
+            "type": "Hiking Trail",
+            "location": {
+                "x": -122.761209,
+                "y": 45.570764
+            }
+        }
+    ],
+    "pagination": {
+        "nextUrl": "https://places-api.arcgis.com/arcgis/rest/services/places-service/v1/places/near-point?x=-122.75000000&y=45.56000000&radius=10000.00000000&searchText=trail&offset=10&pageSize=10"
+    }
+}

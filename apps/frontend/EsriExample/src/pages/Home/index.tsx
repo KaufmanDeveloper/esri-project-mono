@@ -1,9 +1,14 @@
-import { useState } from "react";
-import { Box, Button, Container, Grid, Stack, Text, Title } from "@mantine/core";
+import { useEffect, useState } from "react";
+import { Box, Button, Container, Grid, Stack, Text, Title, Loader } from "@mantine/core";
 import LocationCard from "../../components/LocationCard";
 import { Map, Marker } from 'pigeon-maps';
 
-import exampleTrailsResponse from "../../../testing-json/get-trails-response-near-portland.json";
+import trailsNearPortland from "../../../static-json/trails-near-portland.json";
+
+// If you do not want to include your ESRI API key for this project, set this to true
+const SHOULD_LOAD_DATA_FROM_STATIC_JSON = true;
+const LOCAL_ROOT_API_URL = "http://localhost:5134";
+const RADIUS = 10000;
 
 type Place = {
     name: string;
@@ -14,22 +19,75 @@ type Place = {
     };
 }
 
-function Home() {
+type TrailsDisplayProps = {
+    coordinates: { x: number, y: number } | null;
+}
+
+function Home({ coordinates }: TrailsDisplayProps) {
+    const initialPlaceElements = SHOULD_LOAD_DATA_FROM_STATIC_JSON ? trailsNearPortland.results : [];
+    const initialLoadingState = SHOULD_LOAD_DATA_FROM_STATIC_JSON ? false : true;
+
+    const [placeElements, setPlaceElements] = useState<Place[]>(initialPlaceElements);
+    const [isLoading, setIsLoading] = useState<boolean>(initialLoadingState);
+    const [error, setError] = useState<string | null>(null);
     const [inspectedElement, setInspectedElement] = useState<Place | null>(null);
     const coordinate: [number, number] | null = inspectedElement
         ? [inspectedElement.location.y, inspectedElement.location.x]
         : null;
-    const placeElements = exampleTrailsResponse.results;
 
     const handleCardClick = (place: Place) => {
         setInspectedElement(place);
     }
+
+    useEffect(() => {
+        if (coordinates === null || coordinates.x === null || coordinates.y === null) {
+            return;
+        }
+
+        let isMounted = true;
+
+        const fetchData = async () => {
+            try {
+                setIsLoading(true);
+                const response = await fetch(`${LOCAL_ROOT_API_URL}/api/Trails?x=${coordinates.x}&y=${coordinates.y}&radius=${RADIUS}`);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                if (isMounted) {
+                    setPlaceElements(result);
+                }
+            } catch (err) {
+                if (isMounted) {
+                    setError(err instanceof Error ? err.message : String(err));
+                }
+            } finally {
+                if (isMounted) {
+                    setIsLoading(false);
+                }
+            }
+        };
+
+        fetchData();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     const placeCards = placeElements.map((place, index) => (
         <Grid.Col key={index} span={4}>
             <LocationCard name={place.name} type={place.type} handleClick={() => handleCardClick(place)} />
         </Grid.Col>
     ));
+
+    const loadingRender = isLoading ? (
+        <Container size="lg" my="md">
+            <Loader color="blue" />
+        </Container>
+    ) : null;
 
     const render = inspectedElement ? (
         <Container size="md" my="md">
@@ -59,7 +117,7 @@ function Home() {
         </Container>
     );
 
-    return render
+    return loadingRender || render;
 }
 
 export default Home
